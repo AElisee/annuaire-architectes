@@ -1,9 +1,17 @@
 import { IoSearch } from "react-icons/io5";
-
+import { RiResetLeftFill } from "react-icons/ri";
 const Search = ({ filters, setFilters }) => {
   // Fonction pour mettre à jour les filtres en fonction des inputs
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
+  };
+
+  const resetInput = () => {
+    setFilters({
+      nom: "",
+      cabinet: "",
+      localite: "",
+    });
   };
 
   return (
@@ -51,11 +59,12 @@ const Search = ({ filters, setFilters }) => {
         </div>
         <div className="h-1/3 flex justify-center items-center">
           <button
+            onClick={resetInput}
             type="button"
-            className="flex gap-3 items-center p-2 px-5 border rounded-lg w-[170px] bg-blue-800 border-none text-white justify-center"
+            className="flex gap-3 items-center p-2 px-5 border rounded-lg w-[170px] bg-blue-800 border-none text-white justify-center cursor-pointer"
           >
-            <IoSearch size={20} className="font-extrabold text-white" />
-            <span>Recherche</span>
+            <RiResetLeftFill size={20} className="font-extrabold text-white" />
+            <span>Réinitialiser</span>
           </button>
         </div>
       </form>
