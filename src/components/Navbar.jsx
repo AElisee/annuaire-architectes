@@ -61,7 +61,7 @@ const Navbar = () => {
           )}
         </div>
         {open && (
-          <div className="absolute top-0 left-0 w-[60vw] h-[100vh] bg-white md:hiddden">
+          <div className="absolute top-0 left-0 w-[80vw] h-[100vh] bg-white md:hiddden">
             <div className="w-full p-3 flex justify-between items-center">
               <Logo />
               <IoCloseSharp

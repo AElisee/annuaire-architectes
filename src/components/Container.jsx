@@ -4,7 +4,6 @@ import { db } from "../utils/firebase.config.js";
 import Search from "./Search.jsx";
 import Card from "./Card.jsx";
 import Pagination from "./Pagination.jsx";
-import Loading from "./Loading.jsx";
 
 const Container = () => {
   const [architectes, setArchitectes] = useState([]);

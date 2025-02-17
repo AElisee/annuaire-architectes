@@ -1,4 +1,3 @@
-import { IoSearch } from "react-icons/io5";
 import { RiResetLeftFill } from "react-icons/ri";
 const Search = ({ filters, setFilters }) => {
   // Fonction pour mettre à jour les filtres en fonction des inputs
