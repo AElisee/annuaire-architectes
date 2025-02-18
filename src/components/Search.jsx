@@ -9,7 +9,7 @@ const Search = ({ filters, setFilters }) => {
     setFilters({
       nom: "",
       cabinet: "",
-      localite: "",
+      diplome: "",
     });
   };
 
@@ -45,13 +45,13 @@ const Search = ({ filters, setFilters }) => {
             />
           </div>
           <div className="w-full md:w-1/3 flex flex-col gap-1">
-            <label htmlFor="localite">Localité</label>
+            <label htmlFor="diplome">Diplôme</label>
             <input
               type="text"
-              name="localite"
-              value={filters.localite}
+              name="diplome"
+              value={filters.diplome}
               onChange={handleChange}
-              placeholder="Rechercher par localité"
+              placeholder="Rechercher par dîplome"
               className="p-1 rounded-md border focus:outline-blue-200 focus:outline-4 border-slate-300"
             />
           </div>

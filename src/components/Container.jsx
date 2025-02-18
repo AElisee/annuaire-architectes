@@ -10,7 +10,7 @@ const Container = () => {
   const [filters, setFilters] = useState({
     nom: "",
     cabinet: "",
-    localite: "",
+    diplome: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const architectsPerPage = 12;
@@ -48,10 +48,10 @@ const Container = () => {
         architecte.structure
           .toLowerCase()
           .includes(filters.cabinet.toLowerCase())) &&
-      (filters.localite === "" ||
-        architecte.contacts
+      (filters.diplome === "" ||
+        architecte.diplome
           .toLowerCase()
-          .includes(filters.localite.toLowerCase()))
+          .includes(filters.diplome.toLowerCase()))
     );
   });
 
