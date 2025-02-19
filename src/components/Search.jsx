@@ -15,14 +15,14 @@ const Search = ({ filters, setFilters }) => {
   };
 
   return (
-    <div className="w-[95vw] md:w-[900px] h-[500px] md:h-[300px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 rounded-xl bg-white shadow-xl flex flex-col">
-      <div className="h-1/3 md:h-2/5 w-full flex justify-center items-center border-b">
+    <div className="w-[95vw] md:w-[900px] h-[550px] md:h-[300px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 rounded-xl bg-white shadow-xl flex flex-col">
+      <div className="h-1/5 md:h-2/5 w-full flex justify-center items-center border-b">
         <p className="uppercase text-xl md:text-3xl font-semibold">
           Rechercher un architecte
         </p>
       </div>
-      <form className="h-2/3 md:h-3/5 flex flex-col justify-center px-4 pt-4 md:pt-0">
-        <div className="h-2/3 flex flex-col md:flex-row gap-5 items-center justify-center">
+      <form className="h-4/5 md:h-3/5 flex flex-col justify-center  px-4 pt-5  ">
+        <div className="flex-1 flex flex-col md:flex-row gap-5 items-center justify-center">
           <div className="w-full md:w-1/4 flex flex-col gap-1">
             <label htmlFor="nom">Nom</label>
             <input
@@ -68,7 +68,7 @@ const Search = ({ filters, setFilters }) => {
             />
           </div>
         </div>
-        <div className="h-1/3 flex justify-center items-center">
+        <div className="flex flex-1 justify-center items-center">
           <button
             onClick={resetInput}
             type="button"
