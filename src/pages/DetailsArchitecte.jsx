@@ -4,10 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../utils/firebase.config.js";
-import { GrValidate } from "react-icons/gr";
+import { MdConfirmationNumber } from "react-icons/md";
 import { TbArrowBack } from "react-icons/tb";
 import Tooltip from "@mui/material/Tooltip";
 import Loading from "../components/Loading.jsx";
+import SocialNetwork from "../components/SocialNetwork.jsx";
 const DetailsArchitecte = () => {
   const [architecte, setArchitecte] = useState(null);
   const { id } = useParams();
@@ -60,11 +61,11 @@ const DetailsArchitecte = () => {
         </div>
       </div>
 
-      <div className="w-full flex bg-white flex-col">
+      <div className="w-full flex bg-white flex-col h-full">
         {/* <div className="h-[60vh] w-full rounded-t-lg bg-amber-100 gap-5"></div> */}
         {/* infos */}
-        <div className="flex flex-col md:flex-row gap-5 p-0 md:p-5 items-center border-b border-zinc-400 pb-5 h-full">
-          <div className="w-full md:w-1/5 flex flex-col gap-3 items-center justify-center">
+        <div className="flex flex-col md:flex-row gap-5 p-0 md:p-5 items-center border-b border-zinc-400 pb-5 md:h-[300px] ">
+          <div className="w-full md:w-1/5 flex flex-col gap-3 items-center justify-center _bg-amber-200 h-full">
             <div className="size-[150px] rounded-2xl overflow-hidden flex justify-center items-center border border-zinc-100">
               <Suspense>
                 <img
@@ -78,8 +79,8 @@ const DetailsArchitecte = () => {
               {architecte.nom_prenoms}
             </p>
           </div>
-          <div className="w-full md:w-4/5 flex flex-col   h-full gap-3 md:gap-5">
-            <div className="h-1/2 flex flex-col md:flex-row justify-start gap-10">
+          <div className="w-full md:w-4/5 flex flex-col  h-full gap-3 md:gap-6 md:h-[150px] _bg-amber-100">
+            <div className="h-1/3 flex flex-col md:flex-row justify-start gap-10">
               <p className="text-sm text-zinc-500  flex justify-center items-center gap-2">
                 <CiLink size={24} className="font-extrabold text-slate-800" />
                 Structure :
@@ -95,17 +96,20 @@ const DetailsArchitecte = () => {
                 </span>
               </p>
               <p className="text-sm text-zinc-500 flex justify-center items-center gap-2">
-                <GrValidate
+                <MdConfirmationNumber
                   size={20}
                   className="text-green-500 font-extrabold"
                 />
-                <span>Agremment :</span>
+                <span>N° d'ordre :</span>
                 <span className="uppercase text-lg text-slate-700 font-semibold">
                   {architecte.numero_agrement}
                 </span>
               </p>
             </div>
-            <div className="h-1/2">{architecte.contacts}</div>
+            <div className="h-1/3">{architecte.contacts}</div>
+            <div className="h-1/3">
+              <SocialNetwork />
+            </div>
           </div>
         </div>
       </div>

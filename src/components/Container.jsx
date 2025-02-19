@@ -11,6 +11,7 @@ const Container = () => {
     nom: "",
     cabinet: "",
     diplome: "",
+    ordre: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const architectsPerPage = 12;
@@ -51,7 +52,11 @@ const Container = () => {
       (filters.diplome === "" ||
         architecte.diplome
           .toLowerCase()
-          .includes(filters.diplome.toLowerCase()))
+          .includes(filters.diplome.toLowerCase())) &&
+      (filters.ordre === "" ||
+        architecte.numero_agrement
+          .toLowerCase()
+          .includes(filters.ordre.toLowerCase()))
     );
   });
 
@@ -79,7 +84,9 @@ const Container = () => {
       {/* Affichage des architectes */}
       <ul className="flex gap-10 flex-wrap px-10 justify-center">
         {currentArchitectes.length > 0 ? (
-          currentArchitectes.map((item) => <Card item={item} key={item.id} />)
+          currentArchitectes.map((architecte) => (
+            <Card architecte={architecte} key={architecte.id} />
+          ))
         ) : (
           <p className="text-center w-full text-slate-600  text-xl">
             Aucun architecte trouvé !
