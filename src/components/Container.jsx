@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../utils/firebase.config.js";
+import { supabase } from "./../utils/supabaseClient.js";
 import Search from "./Search.jsx";
 import Card from "./Card.jsx";
 import Pagination from "./Pagination.jsx";
@@ -19,18 +18,21 @@ const Container = () => {
   useEffect(() => {
     const fetchArchitectes = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "architectes"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const { data, error } = await supabase.from("architectes").select("*");
+
+        if (error) throw error;
+
         setArchitectes(data);
       } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
+        console.error(
+          "Erreur lors de la récupération des données :",
+          error.message
+        );
       }
     };
 
     fetchArchitectes();
+    // console.log("architectes : ", architectes);
   }, []);
 
   // Remettre la pagination à 1 après filtrage
@@ -85,7 +87,7 @@ const Container = () => {
       <ul className="flex gap-10 flex-wrap px-10 justify-center">
         {currentArchitectes.length > 0 ? (
           currentArchitectes.map((architecte) => (
-            <Card architecte={architecte} key={architecte.id} />
+            <Card architecte={architecte} key={architecte.numero_agrement} />
           ))
         ) : (
           <p className="text-center w-full text-slate-600  text-xl">

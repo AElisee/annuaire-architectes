@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.jsx";
 import { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import Structure from "./pages/Structure.jsx";
+// import Structure from "./pages/Structure.jsx";
 import Footer from "./components/Footer.jsx";
 import DetailsArchitecte from "./pages/DetailsArchitecte.jsx";
 

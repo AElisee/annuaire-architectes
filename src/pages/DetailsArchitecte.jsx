@@ -2,8 +2,7 @@ import { IoMdRibbon } from "react-icons/io";
 import { CiLink } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../utils/firebase.config.js";
+import { supabase } from "./../utils/supabaseClient.js";
 import { MdConfirmationNumber } from "react-icons/md";
 import { TbArrowBack } from "react-icons/tb";
 import Tooltip from "@mui/material/Tooltip";
@@ -11,27 +10,30 @@ import Loading from "../components/Loading.jsx";
 import SocialNetwork from "../components/SocialNetwork.jsx";
 const DetailsArchitecte = () => {
   const [architecte, setArchitecte] = useState(null);
-  const { id } = useParams();
+  const { numero_agrement } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArchitecte = async () => {
       try {
-        const docRef = doc(db, "architectes", id);
-        const docSnap = await getDoc(docRef);
+        const { data, error } = await supabase
+          .from("architectes")
+          .select("*")
+          .eq("numero_agrement", numero_agrement)
+          .single();
 
-        if (docSnap.exists()) {
-          setArchitecte({ id: docSnap.id, ...docSnap.data() });
+        if (error) {
+          console.error("Erreur lors de la récupération :", error.message);
         } else {
-          console.log("Aucun architecte trouvé avec cet ID");
+          setArchitecte(data);
         }
       } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
+        console.error("Erreur inattendue :", error);
       }
     };
 
-    fetchArchitecte();
-  }, [id]);
+    if (numero_agrement) fetchArchitecte();
+  }, [numero_agrement]);
 
   if (!architecte) {
     return <Loading />;
