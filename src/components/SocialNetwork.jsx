@@ -10,7 +10,7 @@ const SocialNetwork = () => {
   return (
     <div className="flex gap-3 md:gap-5 z-30">
       <a
-        href="http://"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleSocialClick}
@@ -21,7 +21,7 @@ const SocialNetwork = () => {
         />
       </a>
       <a
-        href="http://"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleSocialClick}
@@ -32,7 +32,7 @@ const SocialNetwork = () => {
         />
       </a>
       <a
-        href="http://"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleSocialClick}

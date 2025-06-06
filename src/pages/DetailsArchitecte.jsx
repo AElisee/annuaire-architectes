@@ -10,7 +10,7 @@ import Loading from "../components/Loading.jsx";
 import SocialNetwork from "../components/SocialNetwork.jsx";
 const DetailsArchitecte = () => {
   const [architecte, setArchitecte] = useState(null);
-  const { numero_agrement } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,21 +19,36 @@ const DetailsArchitecte = () => {
         const { data, error } = await supabase
           .from("architectes")
           .select("*")
-          .eq("numero_agrement", numero_agrement)
+          .eq("id", id)
           .single();
 
         if (error) {
           console.error("Erreur lors de la récupération :", error.message);
         } else {
-          setArchitecte(data);
+          // Récupération de l'URL publique de l'image
+          const { data: imageData } = supabase.storage
+            .from("images-architectes")
+            .getPublicUrl(data.image);
+
+          const imageUrl =
+            imageData && imageData.publicUrl
+              ? imageData.publicUrl
+              : "/images/default-image.png";
+
+          const architecteWithImage = {
+            ...data,
+            imageUrl,
+          };
+
+          setArchitecte(architecteWithImage);
         }
       } catch (error) {
         console.error("Erreur inattendue :", error);
       }
     };
 
-    if (numero_agrement) fetchArchitecte();
-  }, [numero_agrement]);
+    if (id) fetchArchitecte();
+  }, [id]);
 
   if (!architecte) {
     return <Loading />;
@@ -71,7 +86,7 @@ const DetailsArchitecte = () => {
             <div className="size-[150px] rounded-2xl overflow-hidden flex justify-center items-center border border-zinc-100">
               <Suspense>
                 <img
-                  src={architecte.profil_image}
+                  src={architecte.imageUrl}
                   alt={architecte.nom_prenoms}
                   className="w-full object-cover"
                 />

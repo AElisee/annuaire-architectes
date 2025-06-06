@@ -19,10 +19,26 @@ const Container = () => {
     const fetchArchitectes = async () => {
       try {
         const { data, error } = await supabase.from("architectes").select("*");
-
         if (error) throw error;
 
-        setArchitectes(data);
+        // Ajouter l'URL publique de l'image pour chaque architecte
+        const architectesWithImages = data.map((archi) => {
+          const { data: imageData } = supabase.storage
+            .from("images-architectes") // nom du bucket
+            .getPublicUrl(archi.image); // champ 'image' contenant le nom du fichier
+
+          const publicUrl =
+            imageData && imageData.publicUrl
+              ? imageData.publicUrl
+              : "/images/default-image.png";
+
+          return {
+            ...archi,
+            imageUrl: publicUrl,
+          };
+        });
+
+        setArchitectes(architectesWithImages);
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des données :",
@@ -32,15 +48,14 @@ const Container = () => {
     };
 
     fetchArchitectes();
-    // console.log("architectes : ", architectes);
   }, []);
 
-  // Remettre la pagination à 1 après filtrage
+  // Reset pagination si filtre changé
   useEffect(() => {
     setCurrentPage(1);
   }, [filters]);
 
-  // Filtrage des architectes
+  // Filtrage
   const filteredArchitectes = architectes.filter((architecte) => {
     return (
       (filters.nom === "" ||
@@ -49,15 +64,15 @@ const Container = () => {
           .includes(filters.nom.toLowerCase())) &&
       (filters.cabinet === "" ||
         architecte.structure
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(filters.cabinet.toLowerCase())) &&
       (filters.diplome === "" ||
         architecte.diplome
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(filters.diplome.toLowerCase())) &&
       (filters.ordre === "" ||
         architecte.numero_agrement
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(filters.ordre.toLowerCase()))
     );
   });
@@ -71,7 +86,6 @@ const Container = () => {
     indexOfLastArchitect
   );
 
-  // Fonction pour changer de page
   const paginate = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
@@ -87,10 +101,10 @@ const Container = () => {
       <ul className="flex gap-10 flex-wrap px-10 justify-center">
         {currentArchitectes.length > 0 ? (
           currentArchitectes.map((architecte) => (
-            <Card architecte={architecte} key={architecte.numero_agrement} />
+            <Card architecte={architecte} key={architecte.id} />
           ))
         ) : (
-          <p className="text-center w-full text-slate-600  text-xl">
+          <p className="text-center w-full text-slate-600 text-xl">
             Aucun architecte trouvé !
           </p>
         )}

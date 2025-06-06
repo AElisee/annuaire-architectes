@@ -23,7 +23,7 @@ const Card = ({ architecte }) => {
         <div className="rounded-full shadow-sm size-24 overflow-hidden flex justify-center items-center">
           <Suspense fallback={<Spinner />}>
             <img
-              src={architecte.profil_image}
+              src={architecte.imageUrl}
               alt={architecte.nom_prenoms}
               className="w-full object-cover"
               loading="lazy"
