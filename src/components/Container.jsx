@@ -24,8 +24,8 @@ const Container = () => {
         // Ajouter l'URL publique de l'image pour chaque architecte
         const architectesWithImages = data.map((archi) => {
           const { data: imageData } = supabase.storage
-            .from("images-architectes") // nom du bucket
-            .getPublicUrl(archi.image); // champ 'image' contenant le nom du fichier
+            .from("images-architectes")
+            .getPublicUrl(archi.image);
 
           const publicUrl =
             imageData && imageData.publicUrl
