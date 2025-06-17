@@ -9,7 +9,7 @@ const Container = () => {
   const [filters, setFilters] = useState({
     nom: "",
     cabinet: "",
-    diplome: "",
+    // diplome: "",
     ordre: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,10 +66,6 @@ const Container = () => {
         architecte.structure
           ?.toLowerCase()
           .includes(filters.cabinet.toLowerCase())) &&
-      (filters.diplome === "" ||
-        architecte.diplome
-          ?.toLowerCase()
-          .includes(filters.diplome.toLowerCase())) &&
       (filters.ordre === "" ||
         architecte.numero_agrement
           ?.toLowerCase()
